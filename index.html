@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GamingTecno — Venezuela juega en serio.</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --o:#FF6B00;--o2:#e05e00;
+  --dark:#0D0D0D;--d2:#141414;--d3:#1C1C1C;
+  --w:#fff;--g:#F4F4F4;--b:#E8E8E8;
+  --t:#111;--m:#888;
+  --bc:'Barlow Condensed',sans-serif;
+  --in:'Inter',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--in);background:var(--g);color:var(--t);min-width:320px;overflow-x:hidden}
+.topbar{background:#0a0a0a;border-bottom:1px solid #181818;height:32px;display:flex;align-items:center;padding:0 2.5rem;justify-content:space-between}
+.tb-l{display:flex;align-items:center;gap:1.5rem}
+.tb-item{display:flex;align-items:center;gap:5px;font-size:11px;color:#555;font-weight:500}
+.tb-item i{font-size:12px;color:var(--o)}
+.tb-r{display:flex;align-items:center;gap:1.25rem}
+.tb-r a{font-size:11px;color:#444;text-decoration:none;cursor:pointer;transition:color .2s}
+.tb-r a:hover{color:var(--o)}
+.hdr{background:var(--dark);height:76px;display:flex;align-items:center;padding:0 2.5rem;position:sticky;top:0;z-index:300;border-bottom:1px solid #1a1a1a}
+.hdr-logo{display:flex;align-items:center;gap:14px;text-decoration:none;width:280px;flex-shrink:0}
+.hdr-logo-icon{display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.hdr-logo-icon svg{width:22px;height:22px}
+.hdr-logo-text{}
+.hdr-logo-name{font-family:var(--bc);font-size:26px;font-weight:900;color:var(--w);letter-spacing:1px;line-height:1;display:block}
+.hdr-logo-name em{color:var(--o);font-style:normal}
+.hdr-logo-tagline{font-size:9px;color:#FF6B00;letter-spacing:2px;text-transform:uppercase;display:block;margin-top:3px;opacity:.8}
+.hdr-search{flex:1;display:flex;background:#111;border:1.5px solid #222;border-radius:6px;overflow:hidden;transition:border-color .25s;margin:0 2rem}
+.hdr-search:focus-within{border-color:var(--o)}
+.hdr-search input{flex:1;background:transparent;border:none;outline:none;padding:0 18px;font-size:13px;color:var(--w);font-family:var(--in);height:44px}
+.hdr-search input::placeholder{color:#3a3a3a}
+.hdr-search-btn{background:var(--o);border:none;width:48px;height:44px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .2s;flex-shrink:0}
+.hdr-search-btn:hover{background:var(--o2)}
+.hdr-search-btn i{color:var(--w);font-size:18px}
+.hdr-actions{display:flex;align-items:center;gap:10px;width:280px;justify-content:flex-end;flex-shrink:0}
+.btn-login{background:transparent;border:1.5px solid #252525;color:#aaa;border-radius:6px;padding:0 20px;height:44px;font-size:13px;font-weight:600;cursor:pointer;font-family:var(--in);display:flex;align-items:center;gap:7px;transition:all .2s;white-space:nowrap}
+.btn-login:hover{border-color:var(--o);color:var(--o)}
+.btn-carrito{background:var(--o);border:none;color:var(--w);border-radius:6px;padding:0 20px;height:44px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--in);display:flex;align-items:center;gap:7px;transition:background .2s;position:relative;white-space:nowrap}
+.btn-carrito:hover{background:var(--o2)}
+.cart-n{position:absolute;top:-7px;right:-7px;background:var(--w);color:var(--o);font-size:10px;font-weight:900;width:19px;height:19px;border-radius:50%;display:none;align-items:center;justify-content:center;border:2px solid var(--dark)}
+.cart-n.on{display:flex}
+.nav{background:var(--d2);border-bottom:1px solid #1e1e1e;display:flex;justify-content:center;align-items:center}
+.nav a{padding:13px 22px;font-family:var(--bc);font-size:13px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:#555;border-bottom:3px solid transparent;cursor:pointer;text-decoration:none;display:block;transition:all .2s;white-space:nowrap}
+.nav a:hover{color:var(--o);border-bottom-color:var(--o)}
+.nav a.on{color:var(--o);border-bottom-color:var(--o)}
+.nav-div{width:1px;height:14px;background:#252525;margin:0 4px}
+.hero{position:relative;width:100%;height:calc(100vw * 440 / 1800);max-height:500px;min-height:320px;overflow:hidden;background:var(--dark)}
+.hero-track{display:flex;height:100%;transition:transform .65s cubic-bezier(.4,0,.2,1)}
+.hs{min-width:100%;height:100%;position:relative;flex-shrink:0;display:flex;align-items:center}
+.hs-bg{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform 6s ease}
+.hs.on .hs-bg{transform:scale(1.04)}
+.hs-mask{display:none}
+.hs-body{position:relative;z-index:1;padding:0 2rem 0 4rem;max-width:520px}
+.hs-tag{display:inline-flex;align-items:center;gap:8px;margin-bottom:1rem;padding:4px 12px;border:1px solid rgba(255,107,0,.4);border-radius:3px;background:rgba(255,107,0,.1);max-width:100%;overflow:hidden}
+.hs-tag span{font-size:10px;font-weight:700;color:#ff9944;letter-spacing:2.5px;text-transform:uppercase}
+.hs-title{font-family:var(--bc);font-size:3.8rem;font-weight:900;color:var(--w);line-height:.95;text-transform:uppercase;letter-spacing:-1px;margin-bottom:1rem}
+.hs-title em{color:var(--o);font-style:normal;display:block}
+.hs-sub{font-size:13px;color:#aaa;line-height:1.6;margin-bottom:1.5rem;max-width:420px}
+.hs-cta{display:inline-flex;align-items:center;gap:10px;background:var(--o);color:var(--w);border:none;border-radius:6px;padding:14px 30px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--in);letter-spacing:.5px;text-transform:uppercase;transition:all .2s}
+.hs-cta:hover{background:var(--o2);gap:14px}
+.hero-controls{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:10px;z-index:10}
+.hc-dot{width:32px;height:3px;border-radius:2px;background:rgba(255,255,255,.2);cursor:pointer;transition:all .3s}
+.hc-dot.on{width:48px;background:var(--o)}
+.hero-arr{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.6);width:42px;height:42px;border-radius:6px;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:10;font-size:20px;transition:all .2s}
+.hero-arr:hover{background:rgba(255,107,0,.25);border-color:var(--o);color:var(--o)}
+.hero-arr.l{left:1.5rem}
+.hero-arr.r{right:1.5rem}
+.promo{background:var(--w);border-bottom:1px solid var(--b);overflow:hidden}
+.promo-track{display:flex;transition:transform .5s}
+.promo-sl{min-width:100%;height:62px;display:flex;align-items:center;justify-content:center;gap:2rem;flex-shrink:0;padding:0 2rem}
+.promo-brand{font-family:var(--bc);font-size:18px;font-weight:900;letter-spacing:2px;color:var(--t);text-transform:uppercase}
+.promo-brand em{color:var(--o);font-style:normal}
+.promo-sep{width:1px;height:28px;background:var(--b)}
+.promo-txt{font-size:13px;color:#555}
+.promo-txt b{color:var(--t);font-weight:700}
+.promo-lnk{font-size:12px;color:var(--o);font-weight:700;cursor:pointer;white-space:nowrap;letter-spacing:.3px}
+.promo-dots{display:flex;gap:5px;justify-content:center;padding:.35rem 0;background:var(--w);border-bottom:1px solid var(--b)}
+.pd{width:5px;height:5px;border-radius:50%;background:#ddd;cursor:pointer;transition:background .2s}
+.pd.on{background:var(--o)}
+.marcas{background:#0a0a0a;border-top:1px solid #1e1e1e;border-bottom:1px solid #1e1e1e;padding:1.1rem 0}
+.marcas-hd{font-family:var(--bc);font-size:14px;font-weight:900;letter-spacing:5px;text-transform:uppercase;color:var(--o);text-align:center;margin-bottom:.75rem;display:flex;align-items:center;justify-content:center;gap:16px}
+.marcas-hd::before,.marcas-hd::after{content:'';flex:1;max-width:160px;height:1px;background:rgba(255,107,0,.3)}
+.marcas-run{overflow:hidden}
+.marcas-tr{display:flex;width:max-content;animation:scroll 28s linear infinite}
+.marcas-tr:hover{animation-play-state:paused}
+@keyframes scroll{0%{transform:translateX(0)}100%{transform:translateX(-33.333%)}}
+.marca{font-family:var(--bc);font-size:17px;font-weight:900;letter-spacing:3px;text-transform:uppercase;color:#666;padding:0 3rem;border-right:1px solid #1e1e1e;height:38px;display:flex;align-items:center;transition:color .2s;cursor:default}
+.marca:hover{color:var(--o)}
+.marca-logo{padding:0 2.5rem;border-right:1px solid #1e1e1e;height:56px;min-width:120px;display:flex;align-items:center;justify-content:center;cursor:default;flex-shrink:0}
+.trust{background:var(--w);border-bottom:1px solid var(--b);display:flex}
+.trust-it{display:flex;align-items:center;justify-content:center;gap:10px;padding:.9rem 1rem;border-right:1px solid var(--b);flex:1;min-width:0}
+.trust-it:last-child{border:none}
+.trust-n{font-family:var(--bc);font-size:1.6rem;font-weight:900;color:var(--o);line-height:1;flex-shrink:0;min-width:48px;text-align:center}
+.trust-t{min-width:0}
+.trust-t strong{font-size:12px;font-weight:700;color:var(--t);display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.trust-t span{font-size:10px;color:var(--m);white-space:nowrap;display:block;overflow:hidden;text-overflow:ellipsis}
+.sec{padding:2rem 0}
+.si{max-width:1440px;margin:0 auto;padding:0 2.5rem}
+.sh{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:1.25rem;gap:1rem;flex-wrap:wrap}
+.sh-title{font-family:var(--bc);font-size:1.8rem;font-weight:900;color:var(--t);text-transform:uppercase;letter-spacing:.5px;line-height:1}
+.sh-title em{color:var(--o);font-style:normal}
+.sh-sub{font-size:11px;color:var(--m);font-weight:400;font-family:var(--in);text-transform:none;letter-spacing:0;margin-top:3px}
+.sh-r{display:flex;align-items:center;gap:8px}
+.sa{background:var(--w);border:1px solid var(--b);border-radius:5px;width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;color:#666;transition:all .2s}
+.sa:hover{background:var(--o);border-color:var(--o);color:var(--w)}
+.sl{font-family:var(--bc);font-size:13px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--o);cursor:pointer;text-decoration:none}
+.sec-gray{background:#f0f0f0}
+.sec-dark{background:var(--dark)}
+.cats-wrap{overflow:hidden}
+.cats-grid{display:grid;grid-template-columns:2.2fr 1fr 1fr 1fr 1fr;grid-template-rows:235px 235px;gap:4px}
+.cc{position:relative;overflow:hidden;cursor:pointer;background:var(--d3)}
+.cc.big{grid-row:span 2}
+.cc img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .5s;filter:brightness(.75)}
+.cc:hover img{transform:scale(1.07);filter:brightness(.9)}
+.cc::after{content:'';position:absolute;inset:0}
+.cc:hover::after{}
+.cc-lbl{position:absolute;bottom:0;left:0;right:0;padding:.7rem 1rem;background:linear-gradient(0,rgba(0,0,0,.9) 0%,transparent 100%)}
+.cc-lbl span{font-family:var(--bc);font-size:12px;font-weight:900;color:var(--w);letter-spacing:2px;text-transform:uppercase}
+.cats-dots{display:flex;gap:7px;justify-content:center;padding:.55rem 0 0}
+.cdot{width:24px;height:3px;border-radius:2px;background:#ccc;cursor:pointer;transition:all .2s}
+.cdot.on{background:var(--o);width:36px}
+.chips{display:flex;gap:7px;flex-wrap:wrap}
+.chip{background:var(--w);border:1.5px solid var(--b);border-radius:4px;padding:6px 16px;font-size:11px;font-weight:700;color:#666;cursor:pointer;font-family:var(--in);transition:all .15s;text-transform:uppercase;letter-spacing:.5px}
+.chip.on{background:var(--o);border-color:var(--o);color:var(--w)}
+.dest-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:.9rem}
+.dc{background:var(--w);border:1px solid var(--b);border-radius:6px;display:flex;align-items:center;gap:14px;padding:16px;cursor:pointer;transition:all .2s;position:relative;overflow:hidden}
+.dc::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:transparent;transition:background .2s}
+.dc:hover{box-shadow:0 6px 24px rgba(0,0,0,.1);transform:translateY(-1px)}
+.dc:hover::before{background:var(--o)}
+.dc-img{width:88px;height:88px;flex-shrink:0;background:var(--g);border-radius:6px;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.dc-img img{width:100%;height:100%;object-fit:contain;padding:6px}
+.dc-img i{font-size:2.2rem;color:#ccc}
+.dc-name{font-size:12px;font-weight:600;color:var(--t);line-height:1.4;margin-bottom:8px;overflow:hidden;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical}
+.dc-price{font-family:var(--bc);font-size:1.5rem;font-weight:900;color:var(--t);letter-spacing:-.5px;line-height:1}
+.dc-stock{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-top:4px}
+.dc-stock.ok{color:#16a34a}
+.dc-stock.out{color:#dc2626}
+.dest-dots{display:flex;gap:7px;justify-content:center;margin-top:1rem}
+.ddot{width:24px;height:3px;border-radius:2px;background:#ccc;cursor:pointer;transition:all .2s}
+.ddot.on{background:var(--o);width:36px}
+.carr-out{overflow:hidden}
+.carr-tr{display:grid;grid-auto-flow:column;grid-auto-columns:calc(20% - 8px);gap:10px;transition:transform .4s cubic-bezier(.4,0,.2,1)}
+.pc{background:var(--w);border:1px solid var(--b);border-radius:6px;overflow:hidden;cursor:pointer;transition:all .2s;display:flex;flex-direction:column}
+.pc:hover{box-shadow:0 8px 28px rgba(0,0,0,.12);transform:translateY(-3px)}
+.pc-img{height:170px;background:var(--g);display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative}
+.pc-img img{width:100%;height:100%;object-fit:contain;padding:12px;transition:transform .35s}
+.pc:hover .pc-img img{transform:scale(1.05)}
+.pc-img i{font-size:3rem;color:#ccc}
+.pc-badge{position:absolute;top:0;left:0;background:var(--o);color:var(--w);font-size:9px;font-weight:800;letter-spacing:1px;text-transform:uppercase;padding:4px 10px;border-radius:0 0 5px 0}
+.pc-body{padding:14px;flex:1;display:flex;flex-direction:column}
+.pc-name{font-size:12px;font-weight:600;color:var(--t);line-height:1.35;flex:1;margin-bottom:10px;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.pc-price{font-family:var(--bc);font-size:1.4rem;font-weight:900;color:var(--t);letter-spacing:-.5px;margin-bottom:10px;line-height:1}
+.pc-btn{background:var(--o);color:var(--w);border:none;border-radius:5px;padding:9px;font-size:11px;font-weight:700;cursor:pointer;font-family:var(--in);transition:background .2s;text-transform:uppercase;letter-spacing:.5px}
+.pc-btn:hover{background:var(--o2)}
+.manifiesto{padding:4rem 2.5rem;max-width:1440px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+.man-tag{font-size:10px;font-weight:700;color:var(--o);letter-spacing:3px;text-transform:uppercase;display:flex;align-items:center;gap:10px;margin-bottom:1.25rem}
+.man-tag::before{content:'';width:28px;height:2px;background:var(--o)}
+.man-title{font-family:var(--bc);font-size:3.5rem;font-weight:900;color:var(--w);text-transform:uppercase;letter-spacing:-1px;line-height:.95;margin-bottom:1rem}
+.man-title em{color:var(--o);font-style:normal}
+.man-desc{font-size:14px;color:#666;line-height:1.75;margin-bottom:2rem;max-width:440px}
+.man-cta{background:var(--o);color:var(--w);border:none;border-radius:6px;padding:14px 30px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--in);text-transform:uppercase;letter-spacing:.5px;transition:background .2s;display:inline-flex;align-items:center;gap:10px}
+.man-cta:hover{background:var(--o2)}
+.man-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#1a1a1a;border:1px solid #1a1a1a;border-radius:6px;overflow:hidden}
+.ms{background:var(--d2);padding:1.75rem 1.25rem;text-align:center}
+.ms-n{font-family:var(--bc);font-size:2.8rem;font-weight:900;color:var(--o);line-height:1}
+.ms-l{font-size:10px;color:#444;text-transform:uppercase;letter-spacing:1.5px;margin-top:.35rem;font-weight:600}
+.mo{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:500;display:none;align-items:center;justify-content:center}
+.mo.on{display:flex}
+.mo-box{background:var(--w);border-radius:8px;width:100%;max-width:440px;padding:2.5rem;position:relative;margin:1rem}
+.mo-x{position:absolute;top:12px;right:12px;background:#f5f5f5;border:none;width:30px;height:30px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#888;font-size:16px}
+.mo-x:hover{background:#ebebeb}
+.mo-title{font-family:var(--bc);font-size:1.5rem;font-weight:900;color:var(--t);text-align:center;text-transform:uppercase;letter-spacing:1px;margin-bottom:.25rem}
+.mo-sub{font-size:12px;color:var(--o);text-align:center;margin-bottom:1.75rem;font-weight:600}
+.fg{margin-bottom:1rem}
+.fg label{font-size:10px;font-weight:700;color:var(--m);display:block;margin-bottom:.35rem;text-transform:uppercase;letter-spacing:1px}
+.fi{width:100%;border:none;border-bottom:1.5px solid #ddd;padding:10px 0;font-size:14px;font-family:var(--in);color:var(--t);outline:none;background:transparent;transition:border-color .2s}
+.fi:focus{border-color:var(--o)}
+.fi::placeholder{color:#ccc}
+.fg-2{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
+.mo-btn{width:100%;background:var(--o);color:var(--w);border:none;border-radius:6px;padding:13px;font-size:14px;font-weight:700;cursor:pointer;font-family:var(--in);margin-top:.5rem;text-transform:uppercase;letter-spacing:.5px;transition:background .2s}
+.mo-btn:hover{background:var(--o2)}
+.mo-btn.out{background:var(--w);color:var(--o);border:1.5px solid var(--o);margin-top:.65rem}
+.mo-sw{text-align:center;font-size:12px;color:var(--m);margin-top:.85rem}
+.mo-sw a{color:var(--o);font-weight:700;cursor:pointer}
+.wa{position:fixed;bottom:1.75rem;right:1.75rem;background:#25d366;color:var(--w);border:none;border-radius:50px;height:50px;padding:0 20px;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:9px;font-family:var(--in);z-index:200;box-shadow:0 4px 24px rgba(37,211,102,.4);transition:all .25s;text-decoration:none;letter-spacing:.3px}
+.wa:hover{background:#1da853;transform:translateY(-3px);box-shadow:0 8px 30px rgba(37,211,102,.5)}
+.footer{background:var(--dark);border-top:1px solid #161616}
+.ft{max-width:1440px;margin:0 auto;padding:2.5rem 2.5rem;display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:2.5rem;border-bottom:1px solid #141414}
+.fl-brand{font-family:var(--bc);font-size:1.1rem;font-weight:900;color:var(--w);letter-spacing:1px;text-transform:uppercase;display:flex;align-items:center;gap:10px;margin-bottom:.25rem}
+.fl-brand em{color:var(--o);font-style:normal}
+.fl-slogan{font-size:10px;color:var(--o);font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:.6rem}
+.fl-desc{font-size:12px;color:#333;line-height:1.65}
+.fl-social{display:flex;gap:8px;margin-top:1rem}
+.fso{width:32px;height:32px;background:#141414;border:1px solid #1e1e1e;border-radius:5px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s}
+.fso:hover{background:var(--o);border-color:var(--o)}
+.fso svg{transition:stroke .2s}
+.fso:hover svg{stroke:#fff}
+.fc h4{font-family:var(--bc);font-size:10px;font-weight:900;letter-spacing:3px;text-transform:uppercase;color:#2e2e2e;margin-bottom:1rem}
+.fc a{display:block;font-size:12px;color:#333;cursor:pointer;margin-bottom:.5rem;transition:color .2s;text-decoration:none}
+.fc a:hover{color:var(--o)}
+.fc-wa{color:#25d366!important;display:flex;align-items:center;gap:6px;font-weight:700}
+.fb{max-width:1440px;margin:0 auto;padding:.85rem 2.5rem;display:flex;align-items:center;justify-content:space-between}
+.fb p{font-size:11px;color:#222}
+.fb-brand{font-family:var(--bc);font-size:13px;font-weight:900;color:#1e1e1e;letter-spacing:1px;text-transform:uppercase}
+.fb-brand em{color:var(--o);font-style:normal}
+#notif{position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%) translateY(20px);background:var(--t);color:var(--w);padding:11px 26px;border-radius:50px;font-size:13px;font-weight:600;z-index:9999;opacity:0;transition:all .3s;pointer-events:none;white-space:nowrap;box-shadow:0 4px 20px rgba(0,0,0,.3)}
+.ld{text-align:center;padding:3rem;color:var(--m);font-size:13px;grid-column:1/-1}
+.ld svg{display:block;margin:0 auto .5rem;animation:sp 1s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+@media (max-width: 768px) {
+  .topbar{padding:0 1rem;font-size:10px}
+  .tb-r{display:none}
+  .tb-l{gap:1rem}
+  .hdr{height:56px;padding:0 1rem;gap:.75rem}
+  .hdr-logo{width:auto;min-width:0}
+  .hdr-logo-name{font-size:18px}
+  .hdr-logo-tagline{display:none}
+  .hdr-search{margin:0 .75rem;max-width:none}
+  .hdr-search input{font-size:12px;padding:0 10px}
+  .hdr-search-btn{width:40px}
+  .hdr-actions{width:auto;gap:6px}
+  .btn-login span{display:none}
+  .btn-login{padding:0 10px;height:36px}
+  .btn-carrito{padding:0 10px;height:36px;font-size:11px}
+  .nav{justify-content:flex-start;padding:0}
+  .nav a{padding:10px 14px;font-size:11px;letter-spacing:.5px}
+  .nav-div{display:none}
+  .hero{height:auto;min-height:320px}
+  .hs{flex-direction:column;align-items:flex-start;min-height:320px;padding:1.5rem 1.25rem}
+  .hs-body{padding:0;max-width:100%}
+  .hs-title{font-size:2.6rem;line-height:.95}
+  .hs-sub{font-size:12px;margin-bottom:1.25rem}
+  .hs-tag span{font-size:9px}
+  .hs-cta{padding:11px 22px;font-size:12px}
+  .hero-arr{width:32px;height:32px;font-size:16px}
+  .hero-arr.l{left:8px}
+  .hero-arr.r{right:8px}
+  .marcas{padding:.5rem 0}
+  .trust{grid-template-columns:1fr}
+  .trust-it{border-right:none;border-bottom:1px solid var(--b);padding:.75rem 1.5rem;justify-content:flex-start}
+  .trust-it:last-child{border-bottom:none}
+  .sec{padding:1.25rem 0}
+  .si{padding:0 1rem}
+  .sh-title{font-size:1.4rem}
+  .cats-grid{grid-template-columns:1fr 1fr;grid-template-rows:auto;gap:4px}
+  .cc.big{grid-row:span 1;grid-column:span 2;height:160px}
+  .cc{height:100px}
+  .dest-grid{grid-template-columns:1fr}
+  .dc{padding:12px}
+  .dc-img{width:70px;height:70px}
+  .carr-tr{grid-auto-columns:calc(50% - 5px)}
+  .pc-img{height:130px}
+  .manifiesto{grid-template-columns:1fr;gap:2rem;padding:2.5rem 1rem}
+  .man-title{font-size:2.5rem}
+  .man-stats{grid-template-columns:repeat(3,1fr)}
+  .ft{grid-template-columns:1fr;gap:1.5rem;padding:1.5rem 1rem}
+  .fb{flex-direction:column;gap:.5rem;padding:.75rem 1rem;text-align:center}
+  .fb-brand{display:none}
+  .wa{bottom:1rem;right:1rem;padding:0 14px;height:44px;font-size:12px}
+}
+@media (max-width: 480px) {
+  .hdr-logo-name{font-size:15px}
+  .hs-title{font-size:2rem}
+  .carr-tr{grid-auto-columns:calc(80% - 5px)}
+  .nav a{padding:10px 10px;font-size:10px}
+}
+</style>
+</head>
+<body>
+<div id="notif"></div>
+<div class="mo" id="mo" onclick="moOut(event)">
+  <div class="mo-box">
+    <button class="mo-x" onclick="hideMo()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+    <div id="vL">
+      <div class="mo-title">Iniciar sesión</div>
+      <div class="mo-sub">Ingresá tu email para continuar</div>
+      <div class="fg"><label>Email *</label><input class="fi" type="email" id="lE" placeholder="tucorreo@email.com"></div>
+      <div class="fg" id="lPG" style="display:none"><label>Contraseña *</label><input class="fi" type="password" id="lP" placeholder="••••••••"></div>
+      <button class="mo-btn" onclick="doL()">Continuar</button>
+      <button class="mo-btn out" onclick="showR()">Crear cuenta nueva</button>
+    </div>
+    <div id="vR" style="display:none">
+      <div class="mo-title">Crear cuenta</div>
+      <div class="mo-sub">Completá tus datos para registrarte</div>
+      <div class="fg-2">
+        <div class="fg"><label>Nombre *</label><input class="fi" type="text" id="rN" placeholder="Juan"></div>
+        <div class="fg"><label>Apellido *</label><input class="fi" type="text" id="rA" placeholder="García"></div>
+      </div>
+      <div class="fg"><label>Email *</label><input class="fi" type="email" id="rE" placeholder="tucorreo@email.com"></div>
+      <div class="fg"><label>Teléfono *</label>
+        <div style="display:grid;grid-template-columns:100px 1fr;gap:.5rem">
+          <input class="fi" type="text" id="rC" placeholder="0412">
+          <input class="fi" type="text" id="rT" placeholder="1234567">
+        </div>
+      </div>
+      <div class="fg-2">
+        <div class="fg"><label>Contraseña *</label><input class="fi" type="password" id="rP" placeholder="••••••••"></div>
+        <div class="fg"><label>Repetir *</label><input class="fi" type="password" id="rP2" placeholder="••••••••"></div>
+      </div>
+      <button class="mo-btn" onclick="doR()">Registrarme</button>
+      <div class="mo-sw">¿Ya tenés cuenta? <a onclick="showL()">Iniciá sesión acá</a></div>
+    </div>
+  </div>
+</div>
+<div class="topbar">
+  <div class="tb-l">
+    <div class="tb-item"><i class="ti ti-map-pin"></i>Venezuela</div>
+    <div class="tb-item"><i class="ti ti-clock"></i>Lun–Sáb 9:00–18:00</div>
+    <div class="tb-item"><i class="ti ti-brand-whatsapp"></i>+58 424 113 9595</div>
+  </div>
+  <div class="tb-r">
+    <a>Seguir mi pedido</a>
+    <a>Garantía</a>
+    <a>Ayuda</a>
+  </div>
+</div>
+<header class="hdr">
+  <a class="hdr-logo" href="index.html">
+    <svg width="58" height="48" viewBox="0 0 58 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M14 9C8 9 6 13 5 18L1 36C0 42 4 46 9 44C12 43 14 40 16 37L19 31H39L42 37C44 40 46 43 49 44C54 46 58 42 57 36L53 18C52 13 50 9 44 9L38 9C35 7 32 6 29 6C26 6 23 7 20 9L14 9Z" fill="#FF6B00"></path>
+      <path d="M39 31L42 37C44 40 46 43 49 44C54 46 58 42 57 36L53 18C52 13 50 9 44 9L44 11C49 11 51 14 52 19L56 36C57 41 54 44 50 43C47 42 45 39 43 37L40 31Z" fill="rgba(0,0,0,0.22)"></path>
+      <path d="M14 9L20 9C23 7 26 6 29 6C32 6 35 7 38 9L44 9C44 9 42 7 38 7L20 7C16 7 14 9 14 9Z" fill="rgba(255,255,255,0.15)"></path>
+      <circle cx="18" cy="22" r="7" fill="rgba(0,0,0,0.32)"></circle>
+      <circle cx="18" cy="22" r="4.5" fill="rgba(0,0,0,0.2)"></circle>
+      <circle cx="16.5" cy="20.5" r="2" fill="rgba(255,255,255,0.18)"></circle>
+      <circle cx="33" cy="26" r="5" fill="rgba(0,0,0,0.28)"></circle>
+      <circle cx="33" cy="26" r="3" fill="rgba(0,0,0,0.18)"></circle>
+      <rect x="31" y="16" width="3" height="10" rx="1" fill="rgba(0,0,0,0.28)"></rect>
+      <rect x="27" y="19" width="10" height="3" rx="1" fill="rgba(0,0,0,0.28)"></rect>
+      <circle cx="45" cy="17" r="2.5" fill="rgba(0,0,0,0.22)"></circle>
+      <circle cx="49" cy="21" r="2.5" fill="rgba(0,0,0,0.22)"></circle>
+      <circle cx="41" cy="21" r="2.5" fill="rgba(0,0,0,0.22)"></circle>
+      <circle cx="45" cy="25" r="2.5" fill="rgba(0,0,0,0.22)"></circle>
+      <path d="M8 9C6 9 4 11 4 13L5 15C6 13 9 11 14 11L8 9Z" fill="rgba(255,255,255,0.1)"></path>
+      <path d="M50 9C52 9 54 11 54 13L53 15C52 13 49 11 44 11L50 9Z" fill="rgba(0,0,0,0.15)"></path>
+    </svg>
+    <div class="hdr-logo-text">
+      <span class="hdr-logo-name">GAMING<em>TECNO</em></span>
+      <span class="hdr-logo-tagline">Venezuela juega en serio.</span>
+    </div>
+  </a>
+  <div class="hdr-search">
+    <input type="text" id="sI" placeholder="Buscar productos, marcas, modelos..." oninput="onS(this.value)">
+    <button class="hdr-search-btn" aria-label="Buscar"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></button>
+  </div>
+  <div class="hdr-actions">
+    <button class="btn-login" id="btnL" onclick="showMo()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg><span id="btnLT">Ingresá</span></button>
+    <button class="btn-carrito" onclick="window.location.href='carrito.html'">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>Carrito
+      <div class="cart-n" id="cN">0</div>
+    </button>
+  </div>
+</header>
+<nav class="nav">
+  <a href="index.html" class="on">Inicio</a>
+  <div class="nav-div"></div>
+  <a href="catalogo.html">Productos</a>
+  <a href="catalogo.html?cat=Notebooks">Notebooks</a>
+  <a href="index.html">Armá tu PC</a>
+  <div class="nav-div"></div>
+  <a href="catalogo.html?cat=Outlet">Outlet</a>
+  <a href="index.html">Ayuda</a>
+</nav>
+<div class="hero">
+  <div class="hero-track" id="hT" style="transform:translateX(0%)"></div>
+  <button class="hero-arr l" onclick="hNav(-1)" aria-label="Anterior"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
+  <button class="hero-arr r" onclick="hNav(1)" aria-label="Siguiente"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+  <div class="hero-controls" id="hD"></div>
+</div>
+<div class="marcas">
+  <div class="marcas-hd">Marcas que trabajamos</div>
+  <div class="marcas-run">
+    <div class="marcas-tr" id="marcasTr"></div>
+  </div>
+</div>
+<div class="trust">
+  <div class="trust-it"><div class="trust-n">BCV</div><div class="trust-t"><strong>Pagás a tasa del día</strong><span>Precios USD · Pago en bolívares</span></div></div>
+  <div class="trust-it"><div class="trust-n">100%</div><div class="trust-t"><strong>Garantía oficial</strong><span>En absolutamente todos los productos</span></div></div>
+  <div class="trust-it"><div class="trust-n">WA</div><div class="trust-t"><strong>Consultá por WhatsApp</strong><span id="trustWA">+58 424 113 9595</span></div></div>
+</div>
+<section class="sec">
+  <div class="si">
+    <div class="sh">
+      <div><div class="sh-title">Explorá <em>categorías</em></div></div>
+      <div class="sh-r" id="catNavBtns" style="display:none">
+        <button class="sa" onclick="catsNav(-1)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
+        <button class="sa" onclick="catsNav(1)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+      </div>
+    </div>
+    <div class="cats-wrap">
+      <div class="cats-grid" id="cG"></div>
+    </div>
+    <div class="cats-dots"><div class="cdot on" onclick="cGo(0)"></div><div class="cdot" onclick="cGo(1)"></div></div>
+  </div>
+</section>
+<section class="sec sec-gray">
+  <div class="si">
+    <div class="sh">
+      <div><div class="sh-title">Productos <em>destacados</em></div></div>
+      <div class="sh-r">
+        <div class="chips" id="dCh"></div>
+        <button class="sa" onclick="dPrev()"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
+        <button class="sa" onclick="dNext()"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+        <a class="sl" href="catalogo.html">Ver todos →</a>
+      </div>
+    </div>
+    <div class="dest-grid" id="dG"></div>
+    <div class="dest-dots" id="dD"></div>
+  </div>
+</section>
+<section class="sec">
+  <div class="si">
+    <div class="sh">
+      <div>
+        <div class="sh-title"><em>PCs Armadas</em></div>
+        <div class="sh-sub">Listas para encender y jugar · Sin armado, sin esperas</div>
+      </div>
+      <div class="sh-r">
+        <button class="sa" onclick="cArr('pT2','p',-1)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
+        <button class="sa" onclick="cArr('pT2','p',1)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+        <a class="sl" href="catalogo.html">Ver todo →</a>
+      </div>
+    </div>
+    <div class="carr-out"><div class="carr-tr" id="pT2"><p style="color:var(--m);padding:1rem">Cargando...</p></div></div>
+  </div>
+</section>
+<div class="sec-dark">
+  <div class="manifiesto">
+    <div>
+      <div class="man-tag">GamingTecno Venezuela</div>
+      <div class="man-title">Venezuela<br>juega<br><em>en serio.</em></div>
+      <div class="man-desc">Somos la tienda de hardware gaming de Venezuela. Precios reales en USD, pagás a tasa BCV del día. Stock actualizado en tiempo real. Garantía oficial en cada producto. Sin letra chica, sin sorpresas. Consultá cuando quieras por WhatsApp.</div>
+      <button class="man-cta" onclick="go('catalogo.html')">Ver catálogo completo <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></button>
+    </div>
+    <div class="man-stats" id="manStats">
+      <div class="ms"><div class="ms-n">+200</div><div class="ms-l">Productos</div></div>
+      <div class="ms"><div class="ms-n">USD</div><div class="ms-l">Precios</div></div>
+      <div class="ms"><div class="ms-n">BCV</div><div class="ms-l">Tasa del día</div></div>
+      <div class="ms"><div class="ms-n">100%</div><div class="ms-l">Garantía</div></div>
+      <div class="ms"><div class="ms-n">WA</div><div class="ms-l">WhatsApp</div></div>
+      <div class="ms"><div class="ms-n">VE</div><div class="ms-l">Venezuela</div></div>
+    </div>
+  </div>
+</div>
+<section class="sec sec-gray">
+  <div class="si">
+    <div class="sh">
+      <div>
+        <div class="sh-title"><em>Notebooks</em> destacadas</div>
+        <div class="sh-sub">Gaming · Trabajo · Estudio</div>
+      </div>
+      <div class="sh-r">
+        <button class="sa" onclick="cArr('nT','n',-1)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
+        <button class="sa" onclick="cArr('nT','n',1)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+        <a class="sl" href="catalogo.html?cat=Notebooks">Ver todo →</a>
+      </div>
+    </div>
+    <div class="carr-out"><div class="carr-tr" id="nT"><p style="color:var(--m);padding:1rem">Cargando...</p></div></div>
+  </div>
+</section>
+<a class="wa" href="https://wa.me/584241139595?text=Hola%20GamingTecno!%20Venezuela%20juega%20en%20serio." target="_blank">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"></path></svg>
+  Consultá ahora
+</a>
+<footer class="footer">
+  <div class="ft">
+    <div>
+      <div class="fl-brand">
+        <div style="width:32px;height:32px;background:var(--o);border-radius:4px;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+          <svg width="18" height="18" viewBox="0 0 22 22" fill="none"><polygon points="11,2 20,7 20,16 11,21 2,16 2,7" fill="none" stroke="white" stroke-width="1.8" stroke-linejoin="round"></polygon><line x1="11" y1="6" x2="11" y2="16" stroke="white" stroke-width="2" stroke-linecap="round"></line><line x1="6" y1="11" x2="16" y2="11" stroke="white" stroke-width="2" stroke-linecap="round"></line></svg>
+        </div>
+        GAMING<em>TECNO</em>
+      </div>
+      <div class="fl-slogan">Venezuela juega en serio.</div>
+      <div class="fl-desc">Hardware gaming con garantía oficial.<br>Precios en USD · Pagás a tasa BCV.<br>Venezuela.</div>
+      <div class="fl-social">
+        <div class="fso"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></div>
+        <div class="fso"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"></path></svg></div>
+        <div class="fso"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></div>
+        <div class="fso"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.95C5.12 20 12 20 12 20s6.88 0 8.59-.47a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"></path><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"></polygon></svg></div>
+      </div>
+    </div>
+    <div class="fc"><h4>Empresa</h4><a>Quiénes somos</a><a>Trabajá con nosotros</a><a>Blog</a></div>
+    <div class="fc"><h4>Soporte</h4><a>Garantía</a><a>Preguntas frecuentes</a><a>Política de devolución</a><a>Seguir mi pedido</a></div>
+    <div class="fc">
+      <h4>Contacto</h4>
+      <a href="https://wa.me/584241139595" target="_blank" class="fc-wa">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="#25d366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"></path></svg>
+        +58 424 113 9595
+      </a>
+      <a href="mailto:hola@gamingtecno.com">hola@gamingtecno.com</a>
+    </div>
+  </div>
+  <div class="fb">
+    <p>© 2026 GamingTecno Venezuela · Todos los derechos reservados</p>
+    <div class="fb-brand">GAMING<em>TECNO</em> — Venezuela juega en serio.</div>
+  </div>
+</footer>
+<script>
+var SBU='https://msaxuwunxlqlbbpaubde.supabase.co';
+var SBK='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1zYXh1d3VueGxxbGJicGF1YmRlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk4MzMxMzYsImV4cCI6MjA5NTQwOTEzNn0._rxYAwq4nirE_WxYkgqTgyACotPT_X2eHoHfDdc-rq4';
+async function sbQ(p){var r=await fetch(SBU+'/rest/v1/articulos_web?'+p,{headers:{'apikey':SBK,'Authorization':'Bearer '+SBK}});return r.json()}
+var hi=0,hN=0,hTmr;
+function hGo(n){
+  var slides=document.querySelectorAll('.hs');
+  if(!slides.length) return;
+  if(slides[hi]) slides[hi].classList.remove('on');
+  hi=(n+hN)%hN;
+  if(slides[hi]) slides[hi].classList.add('on');
+  var htrack=document.getElementById('hT');
+  if(htrack) htrack.style.transform='translateX(-'+(hi*100)+'%)';
+  document.querySelectorAll('.hc-dot').forEach(function(d,i){d.classList.toggle('on',i===hi)});
+  clearInterval(hTmr);
+  if(hN>1) hTmr=setInterval(function(){hGo(hi+1)},5800);
+}
+function hNav(d){hGo(hi+d)}
+var ci2=0;
+function cGo(n){ci2=Math.max(0,Math.min(1,n));document.querySelectorAll('.cdot').forEach(function(d,i){d.classList.toggle('on',i===ci2)})}
+function cNav(d){cGo(ci2+d)}
+var allP=[],dCats=[],dCur='',dPg=0;
+var cOff={p:0,n:0};
+// ── CARGAR CONFIG WEB DESDE SUPABASE ──────────────────────
+async function sbGet(table, params) {
+  var r = await fetch(SBU+'/rest/v1/'+table+'?'+params, {
+    headers: {'apikey':SBK,'Authorization':'Bearer '+SBK}
+  });
+  return r.json();
+}
+
+async function loadWebConfig() {
+  try {
+    var [banners, cats, marcas, cfg] = await Promise.all([
+      sbGet('hero_banners', 'select=*&order=orden&activo=eq.1'),
+      sbGet('cats_web',     'select=*&activo=eq.1&order=orden'),
+      sbGet('marcas_web',   'select=*&activo=eq.1&order=orden'),
+      sbGet('config_web',   'select=*')
+    ]);
+
+    // Config general
+    var config = {};
+    (cfg||[]).forEach(function(r){ config[r.clave]=r.valor; });
+
+    // WhatsApp dinámico
+    var wa = config.whatsapp || '584241139595';
+    var waEl = document.getElementById('trustWA');
+    if(waEl) waEl.textContent = '+'+wa.replace(/\D/g,'').replace(/^(\d{2})(\d{3})(\d{3})(\d{4})$/,'$1 $2 $3 $4');
+    // Actualizar todos los links de WA
+    document.querySelectorAll('a[href*="wa.me"]').forEach(function(a){
+      a.href = a.href.replace(/wa\.me\/\d+/, 'wa.me/'+wa.replace(/\D/g,''));
+    });
+
+    // Stats manifiesto
+    var statsEl = document.getElementById('manStats');
+    if(statsEl && config.stat1_num) {
+      var statsHtml = '';
+      for(var i=1;i<=6;i++){
+        var n=config['stat'+i+'_num']||'';
+        var l=config['stat'+i+'_lbl']||'';
+        if(n||l) statsHtml+='<div class="ms"><div class="ms-n">'+n+'</div><div class="ms-l">'+l+'</div></div>';
+      }
+      if(statsHtml) statsEl.innerHTML = statsHtml;
+    }
+
+    // Hero banners
+    renderHeroBanners(banners||[]);
+
+    // Categorías web
+    renderCatsWeb(cats||[]);
+    setTimeout(bindDataLinks, 100);
+
+    // Marcas
+    renderMarcasWeb(marcas||[]);
+
+  } catch(e) {
+    console.error('Error cargando config web:', e);
+  }
+}
+
+function renderHeroBanners(banners) {
+  var track = document.getElementById('hT');
+  var dots  = document.getElementById('hD');
+  if(!track) return;
+
+  if(!banners.length) {
+    // Fallback: banner genérico si no hay ninguno en Supabase
+    track.innerHTML = '<div class="hs on" data-link="catalogo.html" style="cursor:pointer"><div class="hs-bg" style="background:#111"></div><div class="hs-mask"></div><div class="hs-body"><div class="hs-tag"><span>GamingTecno Venezuela</span></div><div class="hs-title">Venezuela<br>juega<br><em>en serio.</em></div><div class="hs-sub">Hardware gaming con garantía oficial. Precios en USD, pagás a tasa BCV del día.</div><button class="hs-cta">Ver catálogo</button></div></div>';
+    if(dots) dots.innerHTML = '<div class="hc-dot on"></div>';
+    hi=0; hN=1;
+    return;
+  }
+
+  track.innerHTML = banners.map(function(b,i){
+    var bg = b.imagen_url ? "background-image:url('" + b.imagen_url + "');background-size:cover;background-position:center" : 'background:#111';
+    var link = b.link_destino || 'catalogo.html';
+    return '<div class="hs'+(i===0?' on':'')+'" data-link="'+link+'" style="cursor:pointer">'+
+      '<div class="hs-bg" style="'+bg+'"></div>'+
+      '<div class="hs-mask"></div>'+
+      '<div class="hs-body">'+
+        (b.tag?'<div class="hs-tag"><span>'+b.tag+'</span></div>':'')+
+        (b.titulo?'<div class="hs-title">'+b.titulo+'</div>':'')+
+        (b.subtitulo?'<div class="hs-sub">'+b.subtitulo+'</div>':'')+
+      '</div>'+
+    '</div>';
+  }).join('');
+
+  if(dots) dots.innerHTML = banners.map(function(b,i){
+    return '<div class="hc-dot'+(i===0?' on':'')+'" onclick="hGo('+i+')"></div>';
+  }).join('');
+
+  hi=0; hN=banners.length;
+  track.style.transform='translateX(0%)';
+  clearInterval(hTmr);
+  if(hN>1) hTmr=setInterval(function(){hGo(hi+1)},5800);
+}
+
+var allCats=[], catOffset=0, SMALL_PER_PAGE=8;
+
+function renderCatsWeb(cats) {
+  var el = document.getElementById('cG');
+  if(!el) return;
+  if(!cats.length) return;
+  allCats = cats;
+  catOffset = 0;
+  renderCatsPage();
+
+  // Mostrar flechas solo si hay mas de 8 categorias pequeñas (9 total)
+  var navBtns = document.getElementById('catNavBtns');
+  var catDots = document.querySelector('.cats-dots');
+  if(navBtns) navBtns.style.display = cats.length > SMALL_PER_PAGE ? 'flex' : 'none';
+  if(catDots) catDots.style.display = 'none';
+  catsAutoStart();
+}
+
+function renderCatsPage() {
+  var el = document.getElementById('cG');
+  if(!el) return;
+  // Primera categoria siempre fija (big)
+  var first = allCats[0];
+  // Las pequeñas rotan — tomamos 8 del resto
+  var rest = allCats.slice(1);
+  var smallCats = [];
+  for(var i=0; i<SMALL_PER_PAGE; i++){
+    smallCats.push(rest[(catOffset + i) % rest.length]);
+  }
+  var allToShow = [first].concat(smallCats);
+  el.innerHTML = allToShow.map(function(c,i){
+    var isBig = i===0;
+    var img = c.imagen_url
+      ? '<img src="'+c.imagen_url+'" alt="'+c.nombre+'">'
+      : '<div style="background:#1a1a1a;width:100%;height:100%"></div>';
+    return '<div class="cc'+(isBig?' big':'')+'" data-link="'+c.link_destino+'">'+
+      img+'<div class="cc-lbl"><span>'+c.nombre+'</span></div>'+
+    '</div>';
+  }).join('');
+  setTimeout(bindDataLinks, 50);
+}
+
+var catsTmr;
+function catsNav(d) {
+  var rest = allCats.slice(1);
+  catOffset = (catOffset + d + rest.length) % rest.length;
+  renderCatsPage();
+  clearInterval(catsTmr);
+  if(rest.length > SMALL_PER_PAGE) catsTmr = setInterval(function(){ catsNav(1); }, 4000);
+}
+
+function catsAutoStart() {
+  var rest = allCats.slice(1);
+  if(rest.length > SMALL_PER_PAGE) {
+    clearInterval(catsTmr);
+    catsTmr = setInterval(function(){ catsNav(1); }, 4000);
+  }
+}
+
+function bindDataLinks() {
+  document.querySelectorAll('[data-link]').forEach(function(el){
+    el.onclick = function(){ go(this.dataset.link); };
+  });
+}
+
+function renderMarcasWeb(marcas) {
+  var el = document.getElementById('marcasTr');
+  if(!el) return;
+
+  if(!marcas.length) {
+    // Fallback texto si no hay logos
+    var defaultMarcas = ['AMD','Intel','NVIDIA','ASUS','MSI','Gigabyte','HyperX','Logitech','Corsair','Kingston','Samsung','Seagate','NZXT','Cooler Master','Razer','Western Digital'];
+    var txt = defaultMarcas.map(function(m){return '<div class="marca">'+m+'</div>';}).join('');
+    el.innerHTML = txt+txt;
+    return;
+  }
+
+  // Con logos — imagen en vez de texto
+  var logoHtml = marcas.map(function(m){
+    return '<div class="marca-logo">'+
+      (m.logo_url
+        ? '<img src="'+m.logo_url+'" alt="'+m.nombre+'" style="height:32px;max-width:120px;object-fit:contain;opacity:1;transition:opacity .2s" onmouseover="this.style.opacity=0.7" onmouseout="this.style.opacity=1">'
+        : '<span style="font-family:var(--bc);font-size:17px;font-weight:900;letter-spacing:3px;text-transform:uppercase;color:#666">'+m.nombre+'</span>')+
+    '</div>';
+  }).join('');
+  el.innerHTML = logoHtml + logoHtml + logoHtml; // triplicar para loop infinito sin huecos
+}
+
+async function loadAll(){
+  try{
+    var data=await sbQ('select=id,n,cat,precio,stock,img1&order=id.desc&limit=500');
+    allP=(data||[]).filter(function(p){return p.precio>0});
+    var cs={};allP.forEach(function(p){if(p.cat){if(!cs[p.cat])cs[p.cat]=[];cs[p.cat].push(p)}});
+    dCats=Object.keys(cs).filter(function(c){return!['Notebooks','Notebook','PCs Armadas','PC Armada','Computadoras'].includes(c)});
+    if(dCats.length){dCur=dCats[0];rChips();rDest()}
+    else document.getElementById('dG').innerHTML='<p style="color:var(--m);font-size:13px;padding:1rem;grid-column:1/-1;text-align:center">Activá artículos con web=1 en el ERP.</p>';
+    rPCs();rNBs();
+  }catch(e){document.getElementById('dG').innerHTML='<p style="color:var(--m);font-size:13px;padding:1rem;grid-column:1/-1;text-align:center">Error conectando con el servidor.</p>'}
+}
+function iU(p){return p.img1&&p.img1!=='EMPTY'&&p.img1.startsWith('http')?p.img1:null}
+function fmt(n){return '$'+parseFloat(n||0).toLocaleString('es-VE',{minimumFractionDigits:2,maximumFractionDigits:2})}
+function esc(s){return(s||'').replace(/'/g,"\\'")}
+function rChips(){
+  document.getElementById('dCh').innerHTML=dCats.slice(0,5).map(function(c){
+    return '<button class="chip'+(c===dCur?' on':'')+'" onclick="setD(\''+esc(c)+'\')">'+c+'</button>';
+  }).join('');
+}
+function setD(c){dCur=c;dPg=0;rChips();rDest()}
+function rDest(){
+  var l=allP.filter(function(p){return p.cat===dCur});
+  var pages=Math.ceil(l.length/6);
+  var sl=l.slice(dPg*6,dPg*6+6);
+  document.getElementById('dG').innerHTML=sl.length?sl.map(function(p){
+    var u=iU(p);
+    return '<div class="dc" onclick="go(\'producto.html?id='+p.id+'\')">'
+      +'<div class="dc-img">'+(u?'<img src="'+u+'" alt="" onerror="this.style.display=\'none\'">':'<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>')+'</div>'
+      +'<div><div class="dc-name">'+p.n+'</div>'
+      +'<div class="dc-price">'+fmt(p.precio)+'</div>'
+      +'<div class="dc-stock '+(p.stock>0?'ok':'out')+'">'+(p.stock>0?'● En stock':'● Sin stock')+'</div></div>'
+      +'</div>';
+  }).join(''):'<p style="color:var(--m);padding:1rem;grid-column:1/-1">Sin productos en esta categoría.</p>';
+  var dh='';for(var i=0;i<pages;i++)dh+='<div class="ddot'+(i===dPg?' on':'')+'" onclick="dPg='+i+';rDest()"></div>';
+  document.getElementById('dD').innerHTML=dh;
+}
+function dPrev(){dPg=Math.max(0,dPg-1);rDest()}
+function dNext(){var l=allP.filter(function(p){return p.cat===dCur});dPg=Math.min(Math.ceil(l.length/6)-1,dPg+1);rDest()}
+function rCarr(id,lista,badge){
+  if(!lista.length){document.getElementById(id).innerHTML='<p style="color:var(--m);padding:1rem">Sin productos cargados. Activá artículos en el ERP.</p>';return}
+  document.getElementById(id).innerHTML=lista.map(function(p){
+    var u=iU(p);
+    return '<div class="pc" onclick="go(\'producto.html?id='+p.id+'\')"><div class="pc-img">'
+      +(u?'<img src="'+u+'" alt="" onerror="this.style.display=\'none\'">':'<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>')
+      +(badge?'<div class="pc-badge">'+badge+'</div>':'')
+      +'</div><div class="pc-body"><div class="pc-name">'+p.n+'</div>'
+      +'<div class="pc-price">'+fmt(p.precio)+'</div>'
+      +'<button class="pc-btn">Ver más →</button></div></div>';
+  }).join('');
+}
+function rPCs(){var l=allP.filter(function(p){return p.cat&&(p.cat==='PCs Armadas'||p.cat==='PC Armada'||p.cat==='Computadoras')});rCarr('pT2',l.slice(0,10),'PC ARMADA')}
+function rNBs(){var l=allP.filter(function(p){return p.cat&&(p.cat==='Notebooks'||p.cat==='Notebook')});rCarr('nT',l.slice(0,10),null)}
+function cArr(id,k,d){
+  var el=document.getElementById(id);
+  var cards=el.querySelectorAll('.pc');
+  if(!cards.length)return;
+  var cw=cards[0].offsetWidth+10;
+  var max=Math.max(0,(cards.length-5)*cw);
+  cOff[k]=Math.max(0,Math.min(cOff[k]+d*cw,max));
+  el.style.transform='translateX(-'+cOff[k]+'px)';
+}
+function showMo(){document.getElementById('mo').classList.add('on')}
+function hideMo(){document.getElementById('mo').classList.remove('on')}
+function moOut(e){if(e.target===document.getElementById('mo'))hideMo()}
+function showR(){document.getElementById('vL').style.display='none';document.getElementById('vR').style.display='block'}
+function showL(){document.getElementById('vR').style.display='none';document.getElementById('vL').style.display='block'}
+function doL(){
+  var e=document.getElementById('lE').value.trim();
+  if(!e){notif('Ingresá tu email',true);return}
+  var pg=document.getElementById('lPG');
+  if(pg.style.display==='none'){pg.style.display='block';return}
+  var p=document.getElementById('lP').value;
+  if(!p){notif('Ingresá tu contraseña',true);return}
+  localStorage.setItem('gt_u',JSON.stringify({email:e}));
+  document.getElementById('btnLT').textContent=e.split('@')[0];
+  hideMo();notif('¡Bienvenido!');
+}
+function doR(){
+  var n=document.getElementById('rN').value.trim();
+  var e=document.getElementById('rE').value.trim();
+  var p=document.getElementById('rP').value;
+  var p2=document.getElementById('rP2').value;
+  if(!n||!e||!p){notif('Completá todos los campos',true);return}
+  if(p!==p2){notif('Las contraseñas no coinciden',true);return}
+  localStorage.setItem('gt_u',JSON.stringify({nombre:n,email:e}));
+  document.getElementById('btnLT').textContent=n;
+  hideMo();notif('¡Bienvenido, '+n+'!');
+}
+function go(url){window.location.href=url}
+function onS(q){if(q.length>2)window.location.href='catalogo.html?q='+encodeURIComponent(q)}
+function notif(msg,err){
+  var n=document.getElementById('notif');
+  n.textContent=msg;n.style.opacity='1';n.style.transform='translateX(-50%) translateY(0)';
+  n.style.background=err?'#dc2626':'#111';
+  clearTimeout(n._t);n._t=setTimeout(function(){n.style.opacity='0';n.style.transform='translateX(-50%) translateY(20px)'},err?5000:3000);
+}
+function uBadge(){
+  var c=JSON.parse(localStorage.getItem('gt_cart')||'[]');
+  var t=c.reduce(function(s,x){return s+x.qty},0);
+  var b=document.getElementById('cN');
+  b.textContent=t;t>0?b.classList.add('on'):b.classList.remove('on');
+}
+try{var u=JSON.parse(localStorage.getItem('gt_u')||'{}');if(u.nombre||u.email)document.getElementById('btnLT').textContent=u.nombre||u.email.split('@')[0]}catch(e){}
+uBadge();
+loadWebConfig();
+loadAll();
+</script>
+</body>
+</html>
