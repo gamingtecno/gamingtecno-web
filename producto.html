@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Producto — GamingTecno Venezuela</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --o:#FF6B00;--o2:#e05e00;
+  --dark:#0D0D0D;--d2:#141414;--d3:#1C1C1C;
+  --w:#fff;--g:#F4F4F4;--b:#E8E8E8;
+  --t:#111;--m:#888;
+  --bc:'Barlow Condensed',sans-serif;
+  --in:'Inter',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--in);background:var(--g);color:var(--t);min-width:320px;overflow-x:hidden}
+
+/* TOPBAR */
+.topbar{background:#0a0a0a;border-bottom:1px solid #181818;height:32px;display:flex;align-items:center;padding:0 2.5rem;justify-content:space-between}
+.tb-l{display:flex;align-items:center;gap:1.5rem}
+.tb-item{display:flex;align-items:center;gap:5px;font-size:11px;color:#bbb;font-weight:500}
+.tb-r{display:flex;align-items:center;gap:1.25rem}
+.tb-r a{font-size:11px;color:#aaa;text-decoration:none;cursor:pointer;transition:color .2s}
+.tb-r a:hover{color:var(--o)}
+
+/* HEADER */
+.hdr{background:var(--dark);height:76px;display:flex;align-items:center;padding:0 2.5rem;position:sticky;top:0;z-index:300;border-bottom:1px solid #1a1a1a}
+.hdr-logo{display:flex;align-items:center;gap:14px;text-decoration:none;width:280px;flex-shrink:0}
+.hdr-logo-name{font-family:var(--bc);font-size:26px;font-weight:900;color:var(--w);letter-spacing:1px;line-height:1;display:block}
+.hdr-logo-name em{color:var(--o);font-style:normal}
+.hdr-logo-tagline{font-size:9px;color:#FF6B00;letter-spacing:2px;text-transform:uppercase;display:block;margin-top:3px;opacity:.8}
+.hdr-search{flex:1;display:flex;background:#111;border:1.5px solid #222;border-radius:6px;overflow:hidden;transition:border-color .25s;margin:0 2rem}
+.hdr-search:focus-within{border-color:var(--o)}
+.hdr-search input{flex:1;background:transparent;border:none;outline:none;padding:0 18px;font-size:13px;color:var(--w);font-family:var(--in);height:44px}
+.hdr-search input::placeholder{color:#777}
+.hdr-search-btn{background:var(--o);border:none;width:48px;height:44px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .2s;flex-shrink:0}
+.hdr-search-btn:hover{background:var(--o2)}
+.hdr-actions{display:flex;align-items:center;gap:10px;width:280px;justify-content:flex-end;flex-shrink:0}
+.btn-login{background:transparent;border:1.5px solid #252525;color:#aaa;border-radius:6px;padding:0 20px;height:44px;font-size:13px;font-weight:600;cursor:pointer;font-family:var(--in);display:flex;align-items:center;gap:7px;transition:all .2s;white-space:nowrap}
+.btn-login:hover{border-color:var(--o);color:var(--o)}
+.btn-carrito{background:var(--o);border:none;color:var(--w);border-radius:6px;padding:0 20px;height:44px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--in);display:flex;align-items:center;gap:7px;transition:background .2s;position:relative;white-space:nowrap}
+.btn-carrito:hover{background:var(--o2)}
+.cart-n{position:absolute;top:-7px;right:-7px;background:var(--w);color:var(--o);font-size:10px;font-weight:900;width:19px;height:19px;border-radius:50%;display:none;align-items:center;justify-content:center;border:2px solid var(--dark)}
+.cart-n.on{display:flex}
+
+/* NAV */
+.nav{background:var(--d2);border-bottom:1px solid #1e1e1e;display:flex;justify-content:center;align-items:center}
+.nav a{padding:13px 22px;font-family:var(--bc);font-size:14px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:#fff;border-bottom:3px solid transparent;cursor:pointer;text-decoration:none;display:block;transition:all .2s;white-space:nowrap}
+.nav a:hover{color:var(--o);border-bottom-color:var(--o)}
+.nav a.on{color:var(--o);border-bottom-color:var(--o)}
+.nav-div{width:1px;height:14px;background:#252525;margin:0 4px}
+
+/* BREADCRUMB */
+.bc-bar{background:var(--w);border-bottom:1px solid var(--b);padding:.6rem 2.5rem}
+.bc{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--m)}
+.bc a{color:var(--m);text-decoration:none;cursor:pointer;transition:color .2s}
+.bc a:hover{color:var(--o)}
+.bc span{color:var(--t);font-weight:600}
+
+/* LAYOUT PRODUCTO */
+.prod-layout{max-width:1100px;margin:0 auto;padding:1.5rem 2.5rem;display:grid;grid-template-columns:1fr 380px;gap:2.5rem;align-items:start}
+
+/* GALERÍA */
+.gallery{}
+.gallery-main{background:var(--w);border:1px solid var(--b);border-radius:8px;aspect-ratio:1;max-height:480px;display:flex;align-items:center;justify-content:center;overflow:hidden;margin-bottom:.75rem;position:relative}
+.gallery-main img{width:100%;height:100%;object-fit:contain;padding:2rem;transition:transform .3s}
+.gallery-main img:hover{transform:scale(1.05)}
+.gallery-thumbs{display:flex;gap:8px;flex-wrap:wrap}
+.thumb{width:72px;height:72px;background:var(--w);border:1.5px solid var(--b);border-radius:6px;overflow:hidden;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0}
+.thumb:hover{border-color:var(--o)}
+.thumb.on{border-color:var(--o);box-shadow:0 0 0 2px rgba(255,107,0,.2)}
+.thumb img{width:100%;height:100%;object-fit:contain;padding:6px}
+.no-img{display:flex;align-items:center;justify-content:center;width:100%;height:100%}
+
+/* PANEL COMPRA */
+.buy-panel{position:sticky;top:92px}
+.buy-box{background:var(--w);border:1px solid var(--b);border-radius:8px;padding:1.75rem;margin-bottom:1rem}
+.prod-cat{font-size:10px;font-weight:700;color:var(--o);letter-spacing:2px;text-transform:uppercase;margin-bottom:.5rem}
+.prod-name{font-family:var(--bc);font-size:1.9rem;font-weight:900;color:var(--t);line-height:1.05;text-transform:uppercase;letter-spacing:-.5px;margin-bottom:1rem}
+.prod-sku{font-size:10px;color:var(--m);margin-bottom:1rem}
+.prod-price{font-family:var(--bc);font-size:3rem;font-weight:900;color:var(--t);line-height:1;letter-spacing:-1px;margin-bottom:.35rem}
+.prod-price-sub{font-size:11px;color:var(--m);margin-bottom:1.25rem}
+.prod-price-sub strong{color:var(--t)}
+.stock-badge{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;padding:5px 12px;border-radius:4px;margin-bottom:1.25rem}
+.stock-badge.ok{background:#f0fdf4;color:#16a34a;border:1px solid #bbf7d0}
+.stock-badge.out{background:#fef2f2;color:#dc2626;border:1px solid #fecaca}
+.stock-badge.low{background:#fffbeb;color:#d97706;border:1px solid #fde68a}
+.qty-row{display:flex;align-items:center;gap:12px;margin-bottom:1rem}
+.qty-lbl{font-size:11px;font-weight:700;color:var(--m);text-transform:uppercase;letter-spacing:.5px}
+.qty-ctrl{display:flex;align-items:center;border:1.5px solid var(--b);border-radius:6px;overflow:hidden}
+.qty-btn{background:var(--g);border:none;width:36px;height:36px;font-size:18px;font-weight:700;cursor:pointer;color:var(--t);transition:background .2s;display:flex;align-items:center;justify-content:center}
+.qty-btn:hover{background:var(--b)}
+.qty-val{width:44px;text-align:center;font-size:14px;font-weight:700;color:var(--t);border:none;outline:none;font-family:var(--in);background:var(--w)}
+.btn-add{width:100%;background:var(--o);color:var(--w);border:none;border-radius:6px;padding:15px;font-size:14px;font-weight:700;cursor:pointer;font-family:var(--in);text-transform:uppercase;letter-spacing:.5px;transition:background .2s;margin-bottom:.75rem;display:flex;align-items:center;justify-content:center;gap:10px}
+.btn-add:hover{background:var(--o2)}
+.btn-add:disabled{background:#ccc;cursor:not-allowed}
+.btn-wa{width:100%;background:#25d366;color:var(--w);border:none;border-radius:6px;padding:13px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--in);text-transform:uppercase;letter-spacing:.5px;transition:background .2s;display:flex;align-items:center;justify-content:center;gap:8px;text-decoration:none}
+.btn-wa:hover{background:#1da853}
+.trust-mini{display:flex;flex-direction:column;gap:8px;padding:1rem;background:var(--g);border-radius:6px;margin-top:1rem}
+.tm-item{display:flex;align-items:center;gap:10px;font-size:11px;color:#555}
+.tm-item svg{color:var(--o);flex-shrink:0}
+.tm-item strong{color:var(--t)}
+
+/* TABS */
+.tabs-section{background:var(--w);border:1px solid var(--b);border-radius:8px;overflow:hidden;grid-column:1}
+.tabs-nav{display:flex;border-bottom:1px solid var(--b)}
+.tab-btn{padding:14px 24px;font-family:var(--bc);font-size:12px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:#999;border:none;background:transparent;cursor:pointer;border-bottom:3px solid transparent;transition:all .2s;font-family:var(--in)}
+.tab-btn:hover{color:var(--t)}
+.tab-btn.on{color:var(--o);border-bottom-color:var(--o)}
+.tab-body{padding:1.75rem;display:none}
+.tab-body.on{display:block}
+.desc-text{font-size:13px;color:#444;line-height:1.8}
+.specs-grid{display:grid;grid-template-columns:1fr 1fr;gap:0}
+.spec-group{margin-bottom:1.5rem}
+.spec-group:last-child{margin-bottom:0}
+.spec-group-title{font-family:var(--bc);font-size:11px;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:var(--o);border-bottom:2px solid var(--o);padding-bottom:6px;margin-bottom:.75rem}
+.specs-container{max-width:760px}
+.specs-grid{display:grid;grid-template-columns:1fr 1fr;gap:0}
+.spec-group{margin-bottom:2rem;background:#fafafa;border-radius:8px;overflow:hidden;border:1px solid var(--b)}
+.spec-group:last-child{margin-bottom:0}
+.spec-group-title{font-family:var(--bc);font-size:11px;font-weight:900;letter-spacing:2.5px;text-transform:uppercase;color:#fff;background:var(--o);padding:8px 16px;margin-bottom:0}
+.spec-row{display:flex;padding:10px 16px;border-bottom:1px solid var(--b);gap:0;align-items:center}
+.spec-row:last-child{border:none}
+.spec-k{font-size:11px;font-weight:700;color:var(--m);text-transform:uppercase;letter-spacing:.5px;width:200px;min-width:200px;flex-shrink:0}
+.spec-v{font-size:13px;color:var(--t);font-weight:600}
+.specs-col{padding:0 .5rem}
+.specs-col:first-child{border-right:1px solid var(--b);padding-left:0}
+
+/* RELACIONADOS */
+.rel-section{max-width:1100px;margin:0 auto;padding:0 2.5rem 2.5rem}
+.rel-title{font-family:var(--bc);font-size:1.5rem;font-weight:900;color:var(--t);text-transform:uppercase;letter-spacing:.5px;margin-bottom:1rem}
+.rel-title em{color:var(--o);font-style:normal}
+.rel-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+/* ── LIGHTBOX ── */
+.lb{position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:9999;display:none;align-items:center;justify-content:center;cursor:zoom-out}
+.lb.on{display:flex}
+.lb-img{max-width:90vw;max-height:88vh;object-fit:contain;border-radius:6px;box-shadow:0 20px 60px rgba(0,0,0,.5);user-select:none;transition:opacity .15s}
+.lb-close{position:absolute;top:16px;right:20px;color:#fff;font-size:28px;cursor:pointer;background:rgba(0,0,0,.4);border:none;width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:background .2s}
+.lb-close:hover{background:rgba(255,107,0,.7)}
+.lb-arr{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;width:52px;height:52px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:22px;transition:all .2s}
+.lb-arr:hover{background:rgba(255,107,0,.7);border-color:var(--o)}
+.lb-arr.l{left:20px}
+.lb-arr.r{right:20px}
+.lb-counter{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,.6);font-size:13px;font-family:var(--in)}
+.gallery-main{cursor:zoom-in}
+.gallery-main img{transition:transform .2s}
+.gallery-main:hover img{transform:scale(1.02)}
+.pc{background:var(--w);border:1px solid var(--b);border-radius:6px;overflow:hidden;cursor:pointer;transition:all .2s;display:flex;flex-direction:column}
+.pc:hover{box-shadow:0 8px 28px rgba(0,0,0,.12);transform:translateY(-3px)}
+.pc-img{height:160px;background:var(--w);display:flex;align-items:center;justify-content:center;overflow:hidden;border-bottom:1px solid var(--b)}
+.pc-img img{width:100%;height:100%;object-fit:contain;padding:12px;transition:transform .35s}
+.pc:hover .pc-img img{transform:scale(1.05)}
+.pc-body{padding:12px;flex:1;display:flex;flex-direction:column}
+.pc-name{font-size:11px;font-weight:600;color:var(--t);line-height:1.35;flex:1;margin-bottom:8px;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.pc-price{font-family:var(--bc);font-size:1.3rem;font-weight:900;color:var(--t);letter-spacing:-.5px;margin-bottom:8px}
+.pc-btn{background:var(--o);color:var(--w);border:none;border-radius:4px;padding:8px;font-size:10px;font-weight:700;cursor:pointer;font-family:var(--in);transition:background .2s;text-transform:uppercase}
+.pc-btn:hover{background:var(--o2)}
+
+/* SKELETON */
+.skel{background:linear-gradient(90deg,#eee 25%,#f5f5f5 50%,#eee 75%);background-size:200% 100%;animation:sk 1.4s infinite}
+@keyframes sk{0%{background-position:200% 0}100%{background-position:-200% 0}}
+
+/* WA FLOAT */
+.wa{position:fixed;bottom:1.75rem;right:1.75rem;background:#25d366;color:var(--w);border:none;border-radius:50px;height:50px;padding:0 20px;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:9px;font-family:var(--in);z-index:200;box-shadow:0 4px 24px rgba(37,211,102,.4);transition:all .25s;text-decoration:none;letter-spacing:.3px}
+.wa:hover{background:#1da853;transform:translateY(-3px)}
+
+/* NOTIF */
+#notif{position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%) translateY(20px);background:var(--t);color:var(--w);padding:11px 26px;border-radius:50px;font-size:13px;font-weight:600;z-index:9999;opacity:0;transition:all .3s;pointer-events:none;white-space:nowrap;box-shadow:0 4px 20px rgba(0,0,0,.3)}
+
+/* FOOTER */
+.footer{background:var(--dark);border-top:1px solid #161616;margin-top:2rem}
+.ft{max-width:1440px;margin:0 auto;padding:2.5rem;display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:2.5rem;border-bottom:1px solid #141414}
+.fl-brand{font-family:var(--bc);font-size:1.1rem;font-weight:900;color:var(--w);letter-spacing:1px;text-transform:uppercase;display:flex;align-items:center;gap:10px;margin-bottom:.25rem}
+.fl-brand em{color:var(--o);font-style:normal}
+.fl-slogan{font-size:10px;color:var(--o);font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:.6rem}
+.fl-desc{font-size:12px;color:#333;line-height:1.65}
+.fc h4{font-family:var(--bc);font-size:10px;font-weight:900;letter-spacing:3px;text-transform:uppercase;color:#2e2e2e;margin-bottom:1rem}
+.fc a{display:block;font-size:12px;color:#333;cursor:pointer;margin-bottom:.5rem;transition:color .2s;text-decoration:none}
+.fc a:hover{color:var(--o)}
+.fc-wa{color:#25d366!important;display:flex;align-items:center;gap:6px;font-weight:700}
+.fb{max-width:1440px;margin:0 auto;padding:.85rem 2.5rem;display:flex;align-items:center;justify-content:space-between}
+.fb p{font-size:11px;color:#222}
+.fb-brand{font-family:var(--bc);font-size:13px;font-weight:900;color:#1e1e1e;letter-spacing:1px;text-transform:uppercase}
+.fb-brand em{color:var(--o);font-style:normal}
+
+/* NOT FOUND */
+.not-found{max-width:500px;margin:4rem auto;text-align:center;padding:2rem}
+.nf-icon{font-size:4rem;margin-bottom:1rem;opacity:.3}
+.nf-title{font-family:var(--bc);font-size:2rem;font-weight:900;text-transform:uppercase;margin-bottom:.5rem}
+.nf-sub{font-size:13px;color:var(--m);margin-bottom:1.5rem}
+.nf-btn{display:inline-flex;align-items:center;gap:8px;background:var(--o);color:var(--w);border:none;border-radius:6px;padding:12px 24px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--in);text-decoration:none}
+
+/* RESPONSIVE */
+@media(max-width:1100px){
+  .prod-layout{grid-template-columns:1fr 380px}
+  .rel-grid{grid-template-columns:repeat(4,1fr)}
+}
+@media(max-width:900px){
+  .prod-layout{grid-template-columns:1fr;padding:1rem}
+  .buy-panel{position:static}
+  .rel-grid{grid-template-columns:repeat(3,1fr)}
+  .specs-grid{grid-template-columns:1fr}
+  .specs-col:first-child{border-right:none;padding-left:0}
+  .tabs-section{grid-column:1}
+}
+@media(max-width:768px){
+  .topbar{padding:0 1rem}
+  .tb-r{display:none}
+  .hdr{height:56px;padding:0 1rem;gap:.75rem}
+  .hdr-logo-name{font-size:18px}
+  .hdr-logo-tagline{display:none}
+  .hdr-search{margin:0 .75rem}
+  .hdr-actions{width:auto;gap:6px}
+  .btn-login span{display:none}
+  .btn-login{padding:0 10px;height:36px}
+  .btn-carrito{padding:0 10px;height:36px;font-size:11px}
+  .nav{justify-content:flex-start;overflow-x:auto;padding:0}
+  .nav a{padding:10px 14px;font-size:11px;letter-spacing:.5px}
+  .nav-div{display:none}
+  .bc-bar{padding:.5rem 1rem}
+  .rel-section{padding:0 1rem 1.5rem}
+  .rel-grid{grid-template-columns:repeat(2,1fr)}
+  .ft{grid-template-columns:1fr;gap:1.5rem;padding:1.5rem 1rem}
+  .fb{flex-direction:column;gap:.5rem;padding:.75rem 1rem;text-align:center}
+  .fb-brand{display:none}
+  .wa{bottom:1rem;right:1rem;padding:0 14px;height:44px;font-size:12px}
+  .prod-name{font-size:1.5rem}
+  .prod-price{font-size:2.2rem}
+}
+</style>
+</head>
+<body>
+<div id="notif"></div>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="tb-l">
+    <div class="tb-item"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#FF6B00" stroke-width="2.5" stroke-linecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Venezuela</div>
+    <div class="tb-item"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#FF6B00" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Lun–Sáb 9:00–18:00</div>
+  </div>
+  <div class="tb-r"><a>Garantía</a><a>Ayuda</a></div>
+</div>
+
+<!-- HEADER -->
+<header class="hdr">
+  <a class="hdr-logo" href="index.html">
+    <svg width="48" height="40" viewBox="0 0 58 48" fill="none">
+      <path d="M14 9C8 9 6 13 5 18L1 36C0 42 4 46 9 44C12 43 14 40 16 37L19 31H39L42 37C44 40 46 43 49 44C54 46 58 42 57 36L53 18C52 13 50 9 44 9L38 9C35 7 32 6 29 6C26 6 23 7 20 9L14 9Z" fill="#FF6B00"/>
+      <circle cx="18" cy="22" r="7" fill="rgba(0,0,0,0.32)"/><circle cx="18" cy="22" r="4.5" fill="rgba(0,0,0,0.2)"/>
+      <circle cx="33" cy="26" r="5" fill="rgba(0,0,0,0.28)"/><circle cx="33" cy="26" r="3" fill="rgba(0,0,0,0.18)"/>
+      <rect x="31" y="16" width="3" height="10" rx="1" fill="rgba(0,0,0,0.28)"/>
+      <rect x="27" y="19" width="10" height="3" rx="1" fill="rgba(0,0,0,0.28)"/>
+      <circle cx="45" cy="17" r="2.5" fill="rgba(0,0,0,0.22)"/><circle cx="49" cy="21" r="2.5" fill="rgba(0,0,0,0.22)"/>
+      <circle cx="41" cy="21" r="2.5" fill="rgba(0,0,0,0.22)"/><circle cx="45" cy="25" r="2.5" fill="rgba(0,0,0,0.22)"/>
+    </svg>
+    <div>
+      <span class="hdr-logo-name">GAMING<em>TECNO</em></span>
+      <span class="hdr-logo-tagline">Venezuela juega en serio.</span>
+    </div>
+  </a>
+  <div class="hdr-search">
+    <input type="text" id="sI" placeholder="Buscar productos, marcas, modelos..." onkeydown="if(event.key==='Enter')doSearch()">
+    <button class="hdr-search-btn" onclick="doSearch()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button>
+  </div>
+  <div class="hdr-actions">
+    <button class="btn-login" onclick="window.location.href='index.html'">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      <span>Ingresá</span>
+    </button>
+    <button class="btn-carrito" onclick="window.location.href='carrito.html'">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+      Carrito<div class="cart-n" id="cN">0</div>
+    </button>
+  </div>
+</header>
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="index.html">Inicio</a>
+  <div class="nav-div"></div>
+  <a href="catalogo.html" class="on">Productos</a>
+  <a href="catalogo.html?cat=Notebooks">Notebooks</a>
+  <a href="#">Armá tu PC</a>
+  <div class="nav-div"></div>
+  <a href="catalogo.html?cat=Outlet">Outlet</a>
+  <a href="#">Ayuda</a>
+</nav>
+
+<!-- BREADCRUMB -->
+<div class="bc-bar">
+  <div class="bc">
+    <a href="index.html">Inicio</a>
+    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
+    <a href="catalogo.html" id="bcCat">Productos</a>
+    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
+    <span id="bcNombre">Cargando...</span>
+  </div>
+</div>
+
+<!-- CONTENIDO PRINCIPAL -->
+<div id="mainContent"></div>
+
+<!-- WA FLOAT -->
+<a class="wa" href="https://wa.me/584241139595?text=Hola%20GamingTecno!%20Quiero%20consultar%20sobre%20un%20producto." target="_blank" id="waFloat">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  Consultá ahora
+</a>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="ft">
+    <div>
+      <div class="fl-brand"><div style="width:28px;height:28px;background:var(--o);border-radius:4px;display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="16" height="16" viewBox="0 0 58 48" fill="none"><path d="M14 9C8 9 6 13 5 18L1 36C0 42 4 46 9 44C12 43 14 40 16 37L19 31H39L42 37C44 40 46 43 49 44C54 46 58 42 57 36L53 18C52 13 50 9 44 9L38 9C35 7 32 6 29 6C26 6 23 7 20 9L14 9Z" fill="white"/></svg></div>GAMING<em>TECNO</em></div>
+      <div class="fl-slogan">Venezuela juega en serio.</div>
+      <div class="fl-desc">Hardware gaming con garantía oficial.<br>Precios en USD · Pagás a tasa BCV.<br>Venezuela.</div>
+    </div>
+    <div class="fc"><h4>Empresa</h4><a>Quiénes somos</a><a>Trabajá con nosotros</a><a>Blog</a></div>
+    <div class="fc"><h4>Soporte</h4><a>Garantía</a><a>Preguntas frecuentes</a><a>Política de devolución</a><a>Seguir mi pedido</a></div>
+    <div class="fc">
+      <h4>Contacto</h4>
+      <a href="https://wa.me/584241139595" target="_blank" class="fc-wa">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="#25d366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        +58 424 113 9595
+      </a>
+      <a href="mailto:hola@gamingtecno.com">hola@gamingtecno.com</a>
+    </div>
+  </div>
+  <div class="fb">
+    <p>© 2026 GamingTecno Venezuela · Todos los derechos reservados</p>
+    <div class="fb-brand">GAMING<em>TECNO</em> — Venezuela juega en serio.</div>
+  </div>
+</footer>
+
+<script>
+var SBU='https://msaxuwunxlqlbbpaubde.supabase.co';
+var SBK='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1zYXh1d3VueGxxbGJicGF1YmRlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk4MzMxMzYsImV4cCI6MjA5NTQwOTEzNn0._rxYAwq4nirE_WxYkgqTgyACotPT_X2eHoHfDdc-rq4';
+var qty=1;
+var prod=null;
+
+async function sbQ(p){
+  var r=await fetch(SBU+'/rest/v1/articulos_web?'+p,{headers:{'apikey':SBK,'Authorization':'Bearer '+SBK}});
+  return r.json();
+}
+
+function fmt(n){return '$'+parseFloat(n||0).toLocaleString('es-VE',{minimumFractionDigits:2,maximumFractionDigits:2})}
+function go(url){window.location.href=url}
+function doSearch(){var q=document.getElementById('sI').value.trim();if(q.length>1)window.location.href='catalogo.html?q='+encodeURIComponent(q)}
+
+window.onload=async function(){
+  uBadge();
+  var params=new URLSearchParams(window.location.search);
+  var id=params.get('id');
+  if(!id){showNotFound('No se especificó un producto.');return}
+
+  // Skeleton mientras carga
+  document.getElementById('mainContent').innerHTML=skeletonHTML();
+
+  try{
+    var data=await sbQ('id=eq.'+id+'&select=*&limit=1');
+    if(!data||!data.length){showNotFound('Producto no encontrado.');return}
+    prod=data[0];
+    renderProduct(prod);
+    loadRelated(prod.cat, prod.id);
+  }catch(e){
+    showNotFound('Error conectando con el servidor.');
+  }
+};
+
+function renderProduct(p){
+  // Breadcrumb
+  if(p.cat){
+    document.getElementById('bcCat').textContent=p.cat;
+    document.getElementById('bcCat').href='catalogo.html?cat='+encodeURIComponent(p.cat);
+  }
+  document.getElementById('bcNombre').textContent=p.n;
+  document.title=p.n+' — GamingTecno Venezuela';
+
+  // Imágenes
+  var imgs=[p.img1,p.img2,p.img3].filter(function(i){return i&&i!=='EMPTY'&&i.startsWith('http')});
+  var mainImg=imgs.length?imgs[0]:null;
+  lbImgs=imgs.slice(); // para el lightbox
+
+  // Stock
+  var inStock=p.stock>0;
+  var stockLow=p.stock>0&&p.stock<=3;
+  var stockBadge=inStock
+    ?(stockLow?'<span class="stock-badge low">● Últimas '+p.stock+' unidades</span>':'<span class="stock-badge ok">● En stock</span>')
+    :'<span class="stock-badge out">● Sin stock</span>';
+
+  // Specs desde JSON
+  var specsHTML='<p style="color:var(--m);font-size:13px">Sin especificaciones cargadas.</p>';
+  if(p.specs){
+    try{
+      var sp=null;
+      if(typeof p.specs==='object') sp=p.specs;
+      else {
+        try{ sp=JSON.parse(p.specs); }catch(e){
+          sp={};
+          p.specs.split('\n').forEach(function(line){
+            line=line.trim();
+            if(!line) return;
+            var clean=line.replace(/^[-*•]\s*/,'');
+            var idx=clean.indexOf(':');
+            if(idx>0){
+              var k=clean.substring(0,idx).trim();
+              var v=clean.substring(idx+1).trim();
+              if(k&&v) sp[k]=v;
+            }
+          });
+        }
+      }
+      if(sp){
+        var keys=Object.keys(sp);
+        if(keys.length){
+          specsHTML = buildSpecsDisplay(sp, p.cat);
+        }
+      }
+    }catch(e){}
+  }
+
+  // Descripción
+  var desc=p.desc_web||(p.n+'. Producto disponible en GamingTecno Venezuela con garantía oficial. Precio en USD, pagás a tasa BCV del día.');
+
+  // WA link con producto
+  var waMsg='Hola GamingTecno! Me interesa el producto: '+p.n+' (ID: '+p.id+'). ¿Está disponible?';
+  document.getElementById('waFloat').href='https://wa.me/584241139595?text='+encodeURIComponent(waMsg);
+
+  // Galería thumbs
+  var thumbsHTML='';
+  if(imgs.length>1){
+    thumbsHTML='<div class="gallery-thumbs" id="thumbs">'+imgs.map(function(img,i){
+      return '<div class="thumb'+(i===0?' on':'')+'" onclick="setImg(\''+img+'\',this)"><img src="'+img+'" alt="" onerror="this.parentElement.style.display=\'none\'"></div>';
+    }).join('')+'</div>';
+  }
+
+  document.getElementById('mainContent').innerHTML=
+    '<div class="prod-layout">'+
+    // GALERÍA
+    '<div class="gallery">'+
+      '<div class="gallery-main" id="mainImg">'+
+        (mainImg
+          ?'<img src="'+mainImg+'" alt="'+p.n+'" id="mainImgEl" onclick="lbOpen(0)" style="cursor:zoom-in" onerror="this.style.display=\'none\'">'
+          :'<div class="no-img"><svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>')+
+      '</div>'+
+      thumbsHTML+
+    '</div>'+
+    // PANEL COMPRA
+    '<div class="buy-panel">'+
+      '<div class="buy-box">'+
+        '<div class="prod-cat">'+(p.cat||'')+'</div>'+
+        '<div class="prod-name">'+p.n+'</div>'+
+        (p.sku?'<div class="prod-sku">SKU: '+p.sku+'</div>':'')+
+        stockBadge+
+        '<div class="prod-price">'+fmt(p.precio)+'</div>'+
+        '<div class="prod-price-sub">Precio en USD · Pagás a tasa <strong>BCV del día</strong></div>'+
+        (inStock?
+          '<div class="qty-row"><span class="qty-lbl">Cantidad</span><div class="qty-ctrl"><button class="qty-btn" onclick="chQty(-1)">−</button><span class="qty-val" id="qtyVal">1</span><button class="qty-btn" onclick="chQty(1)">+</button></div></div>':'')+
+        '<button class="btn-add" '+(inStock?'onclick="addCart()"':'disabled')+'>'+
+          '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>'+
+          (inStock?'Agregar al carrito':'Sin stock')+
+        '</button>'+
+        '<a class="btn-wa" href="https://wa.me/584241139595?text='+encodeURIComponent(waMsg)+'" target="_blank">'+
+          '<svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>'+
+          'Consultar por WhatsApp'+
+        '</a>'+
+        '<div class="trust-mini">'+
+          '<div class="tm-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FF6B00" stroke-width="2.5" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg><span><strong>Garantía oficial</strong> en todos los productos</span></div>'+
+          '<div class="tm-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FF6B00" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span>Precio en <strong>USD</strong> · Pagás a tasa <strong>BCV del día</strong></span></div>'+
+          '<div class="tm-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FF6B00" stroke-width="2.5" stroke-linecap="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span>Atención directa por <strong>WhatsApp</strong></span></div>'+
+        '</div>'+
+      '</div>'+
+    '</div>'+
+    // TABS
+    '<div class="tabs-section">'+
+      '<div class="tabs-nav">'+
+        '<button class="tab-btn on" onclick="setTab(0,this)">Especificaciones</button>'+
+      '</div>'+
+      '<div class="tab-body on" id="tab0"><div class="specs-container">'+specsHTML+'</div></div>'+
+    '</div>'+
+    '</div>'+
+    // RELACIONADOS placeholder
+    '<div class="rel-section"><div class="rel-title">Productos <em>relacionados</em></div><div class="rel-grid" id="relGrid"></div></div>';
+}
+
+var lbImgs=[];
+var lbIdx=0;
+
+function setImg(src,el){
+  document.getElementById('mainImgEl').src=src;
+  document.querySelectorAll('.thumb').forEach(function(t){t.classList.remove('on')});
+  el.classList.add('on');
+  // Update lightbox index
+  lbIdx=lbImgs.indexOf(src);
+  if(lbIdx<0)lbIdx=0;
+}
+
+function lbOpen(idx){
+  if(!lbImgs.length) return;
+  lbIdx=idx||0;
+  document.getElementById('lb').classList.add('on');
+  document.getElementById('lbImg').src=lbImgs[lbIdx];
+  lbUpdateCounter();
+  document.body.style.overflow='hidden';
+}
+
+function lbHide(){
+  document.getElementById('lb').classList.remove('on');
+  document.body.style.overflow='';
+}
+
+function lbClose(e){
+  if(e.target===document.getElementById('lb'))lbHide();
+}
+
+function lbNav(d){
+  lbIdx=(lbIdx+d+lbImgs.length)%lbImgs.length;
+  var img=document.getElementById('lbImg');
+  img.style.opacity='0';
+  setTimeout(function(){
+    img.src=lbImgs[lbIdx];
+    img.style.opacity='1';
+    lbUpdateCounter();
+  },150);
+}
+
+function lbUpdateCounter(){
+  var el=document.getElementById('lbCounter');
+  if(el) el.textContent=(lbIdx+1)+' / '+lbImgs.length;
+  // Sync main gallery
+  document.getElementById('mainImgEl').src=lbImgs[lbIdx];
+  document.querySelectorAll('.thumb').forEach(function(t,i){t.classList.toggle('on',i===lbIdx)});
+}
+
+// Keyboard navigation
+document.addEventListener('keydown',function(e){
+  if(!document.getElementById('lb').classList.contains('on'))return;
+  if(e.key==='ArrowRight')lbNav(1);
+  if(e.key==='ArrowLeft')lbNav(-1);
+  if(e.key==='Escape')lbHide();
+});
+
+function setTab(n,el){
+  document.querySelectorAll('.tab-body').forEach(function(t,i){t.classList.toggle('on',i===n)});
+  document.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('on')});
+  el.classList.add('on');
+}
+
+function chQty(d){var max=prod&&prod.stock>0?prod.stock:1;
+  qty=Math.max(1,Math.min(max,qty+d));
+  var el=document.getElementById('qtyVal');
+  if(el)el.textContent=qty;
+}
+
+function addCart(){
+  if(!prod)return;
+  var c=JSON.parse(localStorage.getItem('gt_cart')||'[]');
+  var ex=c.find(function(x){return x.id===prod.id});
+  if(ex){ex.qty+=qty}else{c.push({id:prod.id,name:prod.n,price:prod.precio,qty:qty,img:prod.img1&&prod.img1!=='EMPTY'&&prod.img1.startsWith('http')?prod.img1:null,stock:prod.stock,cat:prod.cat||''})}
+  localStorage.setItem('gt_cart',JSON.stringify(c));
+  uBadge();
+  notif('¡'+qty+(qty>1?' unidades añadidas':' unidad añadida')+' al carrito!');
+}
+
+async function loadRelated(cat,excludeId){
+  if(!cat)return;
+  try{
+    var data=await sbQ('cat=eq.'+encodeURIComponent(cat)+'&id=neq.'+excludeId+'&select=id,n,cat,precio,stock,img1&order=id.desc&limit=5');
+    var list=(data||[]).filter(function(p){return p.precio>0});
+    var grid=document.getElementById('relGrid');
+    if(!grid||!list.length)return;
+    grid.innerHTML=list.map(function(p){
+      var u=p.img1&&p.img1!=='EMPTY'&&p.img1.startsWith('http')?p.img1:null;
+      return '<div class="pc" onclick="go(\'producto.html?id='+p.id+'\')">'+
+        '<div class="pc-img">'+(u?'<img src="'+u+'" alt="" onerror="this.style.display=\'none\'">':'<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>')+'</div>'+
+        '<div class="pc-body"><div class="pc-name">'+p.n+'</div><div class="pc-price">'+fmt(p.precio)+'</div>'+
+        '<button class="pc-btn">Ver producto →</button></div></div>';
+    }).join('');
+  }catch(e){}
+}
+
+function showNotFound(msg){
+  document.getElementById('mainContent').innerHTML=
+    '<div class="not-found">'+
+    '<div class="nf-icon">🔍</div>'+
+    '<div class="nf-title">Producto no encontrado</div>'+
+    '<div class="nf-sub">'+msg+'</div>'+
+    '<a class="nf-btn" href="catalogo.html">Ver catálogo completo</a>'+
+    '</div>';
+}
+
+function skeletonHTML(){
+  return '<div class="prod-layout">'+
+    '<div class="gallery"><div class="gallery-main skel" style="aspect-ratio:1;border-radius:8px"></div></div>'+
+    '<div class="buy-panel"><div class="buy-box">'+
+    '<div class="skel" style="height:12px;width:80px;border-radius:4px;margin-bottom:12px"></div>'+
+    '<div class="skel" style="height:28px;width:90%;border-radius:4px;margin-bottom:8px"></div>'+
+    '<div class="skel" style="height:28px;width:70%;border-radius:4px;margin-bottom:20px"></div>'+
+    '<div class="skel" style="height:48px;width:100%;border-radius:6px;margin-bottom:12px"></div>'+
+    '<div class="skel" style="height:44px;width:100%;border-radius:6px"></div>'+
+    '</div></div></div>';
+}
+
+function uBadge(){
+  var c=JSON.parse(localStorage.getItem('gt_cart')||'[]');
+  var t=c.reduce(function(s,x){return s+x.qty},0);
+  var b=document.getElementById('cN');
+  if(b){b.textContent=t;t>0?b.classList.add('on'):b.classList.remove('on')}
+}
+
+// Grupos de specs por categoría
+var SPEC_GROUPS = {
+  'Procesadores': [
+    {title:'Detalle General', keys:['Marca','Línea','Modelo','P/N','UPC','Socket']},
+    {title:'Especificaciones CPU', keys:['Núcleos','Hilos','Frecuencia base','Frecuencia turbo','Tipo RAM soportada','RAM máx.','GPU integrada']},
+    {title:'Coolers y Disipadores', keys:['Incluye cooler','TDP']}
+  ],
+  'Tarjeta Madre': [
+    {title:'Detalle General', keys:['Marca','Modelo','P/N','UPC','Plataforma','Socket','Chipset']},
+    {title:'Memoria', keys:['Tipo RAM','Slots RAM','RAM máx.','Memoria']},
+    {title:'Slots y Expansión', keys:['Pci-e x16','Pci-e x1','Pci','SLI','Crossfire']},
+    {title:'Almacenamiento', keys:['Sata','M.2','Raid']},
+    {title:'Conectividad', keys:['Usb traseros','Usb internos','Wifi','Bluetooth','Red','Sonido']},
+    {title:'Video y Conectores', keys:['Vga','Dvi','Hdmi','DisplayPort','RGB integrado','Headers RGB','Fan connector']},
+    {title:'Formato y Dimensiones', keys:['Formato','Dimensiones','Fuente']}
+  ],
+  'Mother': [
+    {title:'Detalle General', keys:['Marca','Modelo','P/N','UPC','Plataforma','Socket','Chipset']},
+    {title:'Memoria', keys:['Tipo RAM','Slots RAM','RAM máx.','Memoria']},
+    {title:'Slots y Expansión', keys:['Pci-e x16','Pci-e x1','Pci','SLI','Crossfire']},
+    {title:'Almacenamiento', keys:['Sata','M.2','Raid']},
+    {title:'Conectividad', keys:['Usb traseros','Usb internos','Wifi','Bluetooth','Red','Sonido']},
+    {title:'Video y Conectores', keys:['Vga','Dvi','Hdmi','DisplayPort','RGB integrado','Headers RGB','Fan connector']},
+    {title:'Formato y Dimensiones', keys:['Formato','Dimensiones','Fuente']}
+  ],
+  'Memorias RAM': [
+    {title:'Detalle General', keys:['Marca','P/N']},
+    {title:'Especificaciones', keys:['Tipo','Capacidad','Frecuencia']}
+  ],
+  'Placas de Video': [
+    {title:'Detalle General', keys:['Marca','P/N','Chip GPU']},
+    {title:'Especificaciones GPU', keys:['VRAM','Interfaz','TDP','Largo']}
+  ],
+  'Almacenamiento': [
+    {title:'Detalle General', keys:['Marca','P/N']},
+    {title:'Especificaciones', keys:['Tipo','Capacidad','Interfaz','Vel. lectura']}
+  ],
+  'Fuentes': [
+    {title:'Detalle General', keys:['Marca','P/N']},
+    {title:'Especificaciones', keys:['Potencia','Certificación','Modular']}
+  ],
+  'Monitores': [
+    {title:'Detalle General', keys:['Marca','P/N']},
+    {title:'Especificaciones', keys:['Tamaño','Resolución','Frecuencia','Panel','Tiempo de respuesta']}
+  ]
+};
+
+function buildSpecsDisplay(sp, cat) {
+  var groups = null;
+  for(var c in SPEC_GROUPS){
+    if(cat && cat.toLowerCase().indexOf(c.toLowerCase())>=0){
+      groups = SPEC_GROUPS[c];
+      break;
+    }
+  }
+
+  // Si no hay grupos definidos para esta categoría, mostrar tabla simple
+  if(!groups){
+    var keys=Object.keys(sp);
+    var rows=keys.map(function(k){
+      return '<div class="spec-row"><span class="spec-k">'+k+'</span><span class="spec-v">'+sp[k]+'</span></div>';
+    }).join('');
+    return '<div class="specs-col" style="padding:0">'+rows+'</div>';
+  }
+
+  // Mostrar en grupos
+  return groups.map(function(g){
+    var rows = g.keys.filter(function(k){ return sp[k]; }).map(function(k){
+      return '<div class="spec-row"><span class="spec-k">'+k+'</span><span class="spec-v">'+sp[k]+'</span></div>';
+    }).join('');
+    if(!rows) return '';
+    return '<div class="spec-group">'+
+      '<div class="spec-group-title">'+g.title+'</div>'+
+      rows+
+    '</div>';
+  }).filter(Boolean).join('');
+}
+
+function notif(msg,err){
+  var n=document.getElementById('notif');
+  n.textContent=msg;n.style.opacity='1';n.style.transform='translateX(-50%) translateY(0)';
+  n.style.background=err?'#dc2626':'#111';
+  clearTimeout(n._t);n._t=setTimeout(function(){n.style.opacity='0';n.style.transform='translateX(-50%) translateY(20px)'},3000);
+}
+</script>
+<!-- LIGHTBOX -->
+<div class="lb" id="lb" onclick="lbClose(event)">
+  <button class="lb-close" onclick="lbHide()">✕</button>
+  <button class="lb-arr l" onclick="event.stopPropagation();lbNav(-1)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg></button>
+  <img class="lb-img" id="lbImg" src="" alt="">
+  <button class="lb-arr r" onclick="event.stopPropagation();lbNav(1)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg></button>
+  <div class="lb-counter" id="lbCounter"></div>
+</div>
+</body>
+</html>
